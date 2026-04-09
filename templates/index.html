@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Primagriya</title>
+ <style>
+    /* ===== RESET DASAR ===== */
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: 'Poppins', sans-serif;
+    }
+
+    html {
+        scroll-behavior: smooth;
+    }
+
+    body {
+        background: #fff;
+        color: #333;
+    }
+
+    a {
+        text-decoration: none;
+        color: inherit;
+    }
+
+    /* ===== NAVBAR ===== */
+    header {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        background: #ffffffcc;
+        backdrop-filter: blur(6px);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 12px 8%;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        z-index: 1000;
+        transition: padding 0.3s;
+    }
+
+    .logo {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .logo img {
+        width: 45px;
+        height: 45px;
+    }
+
+    .logo-text h2 {
+        font-size: 20px;
+        color: #007bff;
+        margin-bottom: 2px;
+    }
+
+    .logo-text span {
+        color: #000;
+    }
+
+    .logo-text p {
+        font-size: 12px;
+        color: #555;
+    }
+    
+    /* GAYA NAVIGASI DESKTOP */
+    nav ul {
+        display: flex;
+        gap: 25px;
+        list-style: none;
+    }
+
+    nav a {
+        font-weight: 500;
+        font-size: 15px;
+        position: relative;
+        color: #000;
+        transition: 0.3s;
+    }
+
+    nav a::after {
+        content: '';
+        position: absolute;
+        width: 0%;
+        height: 2px;
+        bottom: -4px;
+        left: 0;
+        background-color: #007bff;
+        transition: width 0.3s;
+    }
+
+    nav a:hover::after {
+        width: 100%;
+    }
+
+    nav a:hover {
+        color: #007bff;
+    }
+
+    /* Sembunyikan Hamburger di Desktop */
+    .hamburger {
+        display: none;
+        cursor: pointer;
+    }
+    
+    section {
+       padding-top: 100px;
+    }
+
+    /* ===== HERO SECTION ===== */
+    .hero {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 60px 10%;
+        padding-top: 100px;
+        background: linear-gradient(135deg, #e9f2ff, #ffffff);
+        flex-wrap: wrap;
+        gap: 40px;
+    }
+
+    .hero-text {
+        flex: 1;
+        min-width: 300px;
+    }
+
+    .hero-text h2 {
+        font-size: 28px;
+        color: #004a99;
+        margin-bottom: 15px;
+    }
+
+    .hero-text p {
+        color: #555;
+        line-height: 1.6;
+        text-align: justify;
+    }
+
+    .hero img {
+        flex: 1;
+        border-radius: 10px;
+        min-width: 280px;
+        max-width: 45%;
+        object-fit: cover;
+    }
+
+    .btn-group {
+        margin-top: 20px;
+        display: flex;
+        gap: 10px;
+    }
+
+    .btn {
+        padding: 10px 20px;
+        background: #007bff;
+        color: #fff;
+        border-radius: 6px;
+        transition: 0.3s;
+        text-align: center;
+    }
+
+    .btn:hover {
+        background: #005fcc;
+    }
+
+    .btn.yellow {
+        background: #00aaff;
+    }
+
+    /* --- Tentang Kami --- */
+    #tentang {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 60px;
+        padding: 80px 10%;
+        background-color: #f9f9f9;
+        flex-wrap: wrap;
+    }
+
+    #tentang img {
+        width: 45%;
+        max-width: 500px;
+        min-width: 300px;
+        height: auto;
+        border-radius: 12px;
+        object-fit: cover;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    #tentang .about-text {
+        width: 50%;
+        min-width: 300px;
+        text-align: justify;
+    }
+
+    #tentang .about-text h2 {
+        color: #0056b3;
+        font-size: 24px;
+        margin-bottom: 15px;
+        text-align: center;
+    }
+
+    #tentang .about-text p {
+        font-size: 15px;
+        color: #333;
+        line-height: 1.8;
+    }
+
+
+    /* ===== SERVICES SECTION ===== */
+    #layanan {
+        text-align: center;
+        padding: 80px 10%;
+        background: #f8faff;
+    }
+    
+    #layanan h2 {
+        font-size: 24px;
+        color: #0056b3;
+    }
+
+    .service-cards {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 30px;
+        margin-top: 40px;
+    }
+
+    .card {
+        background: #fff;
+        border-radius: 12px;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        overflow: hidden;
+        width: 300px;
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 6px 14px rgba(0,0,0,0.15);
+    }
+
+    .card img {
+        width: 100%;
+        height: 180px;
+        object-fit: cover;
+    }
+
+    .card h4 {
+        font-size: 17px;
+        font-weight: 600;
+        color: #002f87;
+        margin: 15px 10px 10px;
+    }
+
+    .card p {
+        font-size: 14px;
+        color: #444;
+        line-height: 1.6;
+        padding: 0 15px 20px;
+    }
+
+    /* ===== CONTACT SECTION ===== */
+    #hubungi {
+        background: #fff;
+        padding: 80px 10%;
+    }
+
+    #hubungi h2 {
+        text-align: center;
+        margin-bottom: 40px;
+        color: #004a99;
+        font-size: 24px;
+    }
+
+    .contact-container {
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+        flex-wrap: wrap;
+        gap: 40px;
+    }
+
+    .contact-info {
+        width: 100%;
+        max-width: 450px;
+        display: flex;
+        flex-direction: column;
+        gap: 25px;
+    }
+
+    .info-item {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+    }
+
+    .icon {
+        background: linear-gradient(135deg, #007bff, #00c6ff);
+        padding: 12px;
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-shrink: 0;
+    }
+
+    .icon img {
+        width: 24px;
+        height: 24px;
+        filter: brightness(0) invert(1);
+    }
+
+    .map {
+        width: 100%;
+        max-width: 450px;
+    }
+
+    iframe {
+        width: 100%;
+        height: 300px;
+        border: none;
+        border-radius: 10px;
+    }
+
+    /* ===== FOOTER ===== */
+    footer {
+        background: #004a99;
+        text-align: center;
+        padding: 20px;
+        color: #fff;
+        font-weight: 500;
+    }
+
+    /* ===== ATURAN RESPONSIVE UNTUK MOBILE (HP & TABLET) ===== */
+    @media (max-width: 992px) {
+        header {
+            padding: 12px 4%;
+        }
+        
+        .hero, #tentang, #layanan, #hubungi {
+            padding-left: 6%;
+            padding-right: 6%;
+        }
+    }
+
+   @media (max-width: 768px) {
+    /* Tambahkan ini agar dropdown bisa diposisikan relatif terhadap nav */
+    nav {
+        position: relative;
+    }
+
+    /* Tampilkan dan atur gaya ikon hamburger */
+    .hamburger {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        width: 28px;
+        height: 24px;
+        background: transparent;
+        border: none;
+        z-index: 1001; /* Pastikan di atas menu */
+    }
+
+    .hamburger .line {
+        width: 100%;
+        height: 3px;
+        background-color: #333;
+        border-radius: 3px;
+        transition: all 0.3s ease-in-out;
+    }
+
+    /* --- GAYA MENU DROPDOWN BARU --- */
+    nav ul {
+        /* 1. Ubah posisi menjadi absolute */
+        position: absolute; 
+        
+        /* 2. Atur posisi di bawah header, rata kanan */
+        top: calc(100% + 15px); /* 100% dari tinggi header + 15px jarak */
+        right: 0;
+
+        /* 3. Hapus properti layar penuh */
+        width: 220px; /* Beri lebar yang pas */
+        height: auto; /* Tinggi sesuai konten */
+
+        /* 4. Atur tampilan seperti box dropdown */
+        background: #ffffff;
+        border-radius: 8px;
+        box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        padding: 10px 0; /* Jarak atas-bawah di dalam box */
+
+        /* 5. Atur layout link di dalam menu */
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start; /* Teks rata kiri */
+        gap: 5px;
+
+        /* 6. Sembunyikan dengan opacity & transform untuk animasi halus */
+        opacity: 0;
+        visibility: hidden;
+        transform: translateY(10px);
+        transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s ease;
+    }
+
+    /* Aturan untuk menampilkan menu saat aktif */
+    nav ul.active {
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0);
+    }
+    
+    /* Atur gaya link di dalam dropdown */
+    nav ul li {
+      width: 100%; /* Pastikan setiap item menu selebar box */
+    }
+
+    nav ul a {
+        font-size: 16px;
+        color: #333; /* Warna teks lebih gelap agar terbaca */
+        font-weight: 500;
+        display: block; /* Agar bisa diberi padding */
+        width: 100%;
+        padding: 10px 20px; /* Padding di setiap link */
+        transition: background-color 0.2s ease;
+    }
+    
+    /* Efek hover pada link */
+    nav ul a:hover {
+        background-color: #f5f5f5;
+    }
+    
+    /* --- Penyesuaian Layout Konten Lainnya --- */
+    /* (Kode di bawah ini tetap sama seperti sebelumnya) */
+    section { padding-top: 120px; }
+    .hero { flex-direction: column; text-align: center; padding-top: 120px; }
+    .hero-text, .hero img { max-width: 100%; width: 100%; }
+    .hero-text p { text-align: center; }
+    .btn-group { justify-content: center; flex-direction: column; gap: 15px; }
+    #tentang { flex-direction: column; gap: 30px; }
+    #tentang img, #tentang .about-text { width: 100%; }
+    .contact-container { flex-direction: column; align-items: center; }
+    .contact-info, .map { width: 100%; }
+}
+</style>
+</head>
+<body>
+
+  <!-- ===== NAVBAR ===== -->
+  <header>
+  <div class="logo">
+    <img src="image/logo_primagriya.png" alt="Logo Primagriya.com">
+    <div class="logo-text">
+      <h2>Primagriya<span>.com</span></h2>
+      <p>Kontraktor Rumah Terbaik</p>
+    </div>
+  </div>
+
+  <nav>
+    <button class="hamburger" id="hamburger-icon" aria-label="menu">
+      <span class="line"></span>
+      <span class="line"></span>
+      <span class="line"></span>
+    </button>
+    
+    <ul id="nav-menu">
+      <li><a href="#home">Home</a></li>
+      <li><a href="#tentang">Tentang Kami</a></li>
+      <li><a href="#layanan">Layanan</a></li>
+      <li><a href="#hubungi">Hubungi Kami</a></li>
+    </ul>
+  </nav>
+</header>
+
+  <!-- ===== HERO ===== -->
+  <section id="home" class="hero">
+    <div class="hero-text">
+      <h2>Primagriya</h2>
+      <p>Primagriya adalah perusahaan jasa konstruksi yang berfokus pada perencanaan, pembangunan, dan renovasi bangunan secara terpadu. Kami hadir untuk membantu mewujudkan hunian, gedung, maupun fasilitas usaha yang kuat, fungsional, dan estetis sesuai kebutuhan klien. Didukung oleh tenaga ahli berpengalaman, tukang profesional, serta pengawasan langsung oleh insinyur dan arsitek berlisensi, setiap proyek kami kerjakan dengan standar kualitas tinggi, ketepatan waktu, dan efisiensi biaya. Kami melayani berbagai jenis pekerjaan konstruksi di wilayah Karanganyar, Solo, dan sekitarnya, mulai dari pembangunan rumah tinggal, ruko, kantor, hingga renovasi dan desain interior.</p>
+      <div class="btn-group">
+        <a href="#tentang" class="btn">Tentang Kami</a>
+        <a href="#hubungi" class="btn yellow">Hubungi Kami</a>
+      </div>
+    </div>
+    <img src="image/dua_pekerja.png" alt="hero image">
+  </section>
+
+  <!-- ===== ABOUT ===== -->
+  <section id="tentang">
+    <img src="image/tim_pekerja.png" alt="Tentang Kami">
+    <div class="about-text">
+      <h2>Tentang Kami</h2>
+      <p>Primagriya.com adalah anak perusahaan dari CV Argajaya Perkasa yang bergerak di bidang jasa pembangunan properti hunian modern yang terjangkau dan berkualitas. Berbasis di area Soloraya Jawa Tengah, Primagriya.com hadir untuk memenuhi kebutuhan masyarakat akan kontraktor rumah yang berkualitas didukung dengan tenaga ahli yang berkompetensi baik di bidang konstruksi. Setiap proyek yang dikembangkan dirancang dengan memperhatikan aspek fungsionalitas, estetika, dan nilai investasi jangka panjang bagi para penghuninya.
+
+Sebagai bagian dari grup CV Argajaya Perkasa, Primagriya.com mengusung standar mutu tinggi dan komitmen terhadap kepuasan pelanggan. Kami senantiasa menghadirkan proyek pembangunan rumah yang ramah lingkungan dan terintegrasi dengan kawasan sekitar, serta memberikan nilai tambah bagi masyarakat. Dengan pengalaman, reputasi, dan dukungan tim profesional, Primagriya.com siap menjadi mitra terpercaya dalam mewujudkan hunian impian Anda. Wujudkan hunian impian keluarga anda bersama kami.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== SERVICES ===== -->
+  <section id="layanan">
+    <h2>Layanan Kami</h2>
+    <p>Kami menyediakan berbagai layanan profesional untuk kebutuhan pembangunan Anda.</p>
+    <div class="service-cards">
+  <div class="card">
+    <img src="image/hunian.jpg" alt="hunian">
+    <h4>Konstruksi Gedung Hunian</h4>
+    <p>"Wujudkan Hunian Impian Anda Bersama Kami. Kami membangun lebih dari sekadar rumah; kami menciptakan ruang ternyaman untuk Anda dan keluarga, dengan kualitas bangunan yang terjamin."</p>
+  </div>
+
+  <div class="card">
+    <img src="image/perkantoran.jpg" alt="perkantoran">
+    <h4>Konstruksi Gedung Perkantoran</h4>
+    <p>"Solusi Konstruksi Komersial Anda. Dari ruko hingga gedung perkantoran, kami hadirkan properti yang nyaman, strategis, dan siap menjadi pusat kesuksesan usaha Anda."</p>
+  </div>
+
+  <div class="card">
+    <img src="image/gedung_industri.png" alt="gedung_industri">
+    <h4>Konstruksi Gedung Industri</h4>
+    <p>"Mendukung Roda Industri dengan Bangunan Kokoh & Efisien. Kami menyediakan jasa konstruksi pabrik, gudang, dan fasilitas industri lainnya yang dirancang untuk kelancaran produksi dan logistik."</p>
+  </div>
+
+  <div class="card">
+    <img src="image/drainase.png" alt="irigasi_drainase">
+    <h4> Konstruksi Jaringan Irigasi dan Drainase</h4>
+    <p>"Infrastruktur Sipil untuk Tata Kelola Air yang Efektif. Kami ahli dalam pembangunan jaringan irigasi presisi dan sistem drainase terencana untuk mendukung pertanian serta lingkungan bebas genangan."</p>
+  </div>
+
+  <div class="card">
+    <img src="image/renovasi.jpg" alt="renovasi">
+    <h4>Renovasi dan Rehabilitasi Bangunan</h4>
+    <p>"Modernisasi dan Peremajaan Properti. Tingkatkan nilai investasi dan kenyamanan bangunan Anda melalui layanan renovasi dan rehabilitasi total dari tim berpengalaman kami."</p>
+  </div>
+
+  <div class="card">
+    <img src="image/desain.png" alt="desain">
+    <h4>Desain dan Konsultasi Konstruksi</h4>
+    <p>"Setiap Bangunan Hebat Dimulai dari Desain yang Matang. Diskusikan ide Anda dengan tim arsitek kami untuk mengubah konsep menjadi blueprint yang fungsional dan efisien."</p>
+  </div>
+</div>
+
+  </section>
+
+  <!-- ===== CONTACT ===== -->
+  <section id="hubungi">
+    <h2>Hubungi Kami</h2>
+    <div class="contact-container">
+      <div class="contact-info">
+        <div class="info-item">
+          <div class="icon"><img src="https://cdn-icons-png.flaticon.com/512/25/25694.png" alt="home"></div>
+          <div>
+            <h4>Alamat</h4>
+            <p>Ds Pandes 03/12 Papahan, Kec Tasikmadu,<br>Kab. Karanganyar, Jawa Tengah</p>
+          </div>
+        </div>
+
+        <div class="info-item">
+          <div class="icon"><img src="https://cdn-icons-png.flaticon.com/512/724/724664.png" alt="phone"></div>
+          <div>
+            <h4>Instagram</h4>
+            <p>prima.griya</p>
+          </div>
+        </div>
+
+        <div class="info-item">
+          <div class="icon"><img src="https://cdn-icons-png.flaticon.com/512/733/733585.png" alt="whatsapp"></div>
+          <div>
+            <h4>WhatsApp</h4>
+            <p>6281239874761</p>
+          </div>
+        </div>
+
+        <div class="info-item">
+          <div class="icon"><img src="https://cdn-icons-png.flaticon.com/512/732/732200.png" alt="email"></div>
+          <div>
+            <h4>Email</h4>
+            <p>primagriya2025@gmail.com</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="map">
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3954.8524077242005!2d110.93267817380188!3d-7.59103837500675!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e7a19e5ec426eb3%3A0xa38816187b2a0e54!2sPrimagriya.com!5e0!3m2!1sid!2sid!4v1760370375901!5m2!1sid!2sid" allowfullscreen="" loading="lazy"></iframe>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer>
+    © 2025 Primagriya.com | Kontraktor Rumah Terbaik
+  </footer>
+
+  <script>
+    const hamburger = document.getElementById('hamburger-icon');
+    const navMenu = document.getElementById('nav-menu');
+
+    // Tambahkan event listener 'click' pada ikon hamburger
+    hamburger.addEventListener('click', () => {
+      // Toggle class 'active' pada elemen nav ul
+      navMenu.classList.toggle('active');
+    });
+
+    // Opsional: Sembunyikan menu jika salah satu link di-klik
+    document.querySelectorAll('#nav-menu a').forEach(link => {
+        link.addEventListener('click', () => {
+            navMenu.classList.remove('active');
+        });
+    });
+  </script>
+
+</body>
+</html>
